@@ -13,4 +13,5 @@ LINUX_installscript_vds.sh
 	Program installer via a selection menu
 	
 LINUX_mountCifs.sh
-	Mounts an external device via cifs as workaround because editing ID3 tags through SMB. I use this in combination with KID3
+	Mounts an external device via cifs as workaround because editing ID3 tags through SMB. 
+	I use this in combination with KID3
