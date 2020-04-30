@@ -5,7 +5,7 @@ Reference: [Garmin forum](https://forums.garmin.com/developer/connect-iq/i/bug-r
 
 ### 1. TUTO
 
-	https://askubuntu.com/questions/1135065/cant-run-pulse-secure-on-ubuntu-19-04-because-libwebkitgtk-1-0-so-0-is-missing
+https://askubuntu.com/questions/1135065/cant-run-pulse-secure-on-ubuntu-19-04-because-libwebkitgtk-1-0-so-0-is-missing
 
 I rewrote the instructions as how I executed them. After that, the simulator worked:
 
