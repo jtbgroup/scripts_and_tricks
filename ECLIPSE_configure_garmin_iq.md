@@ -13,14 +13,14 @@ To get the simulator to work
 
 * Lets make debs and extra folders:
 
-	sudo mkdir /opt/eclipse/garmin/extra
+		sudo mkdir /opt/eclipse/garmin/extra
 
 * Download below packages from archice.ubuntu.com to /usr/local/pulse/debs:
 
-	cd /opt/eclipse/garmin/extra
-	sudo wget archive.ubuntu.com/.../libicu60_60.2-3ubuntu3_amd64.deb
-	sudo wget archive.ubuntu.com/.../libjavascriptcoregtk-1.0-0_2.4.11-3ubuntu3_amd64.deb
-	sudo wget archive.ubuntu.com/.../libwebkitgtk-1.0-0_2.4.11-3ubuntu3_amd64.deb
+		cd /opt/eclipse/garmin/extra
+		sudo wget archive.ubuntu.com/.../libicu60_60.2-3ubuntu3_amd64.deb
+		sudo wget archive.ubuntu.com/.../libjavascriptcoregtk-1.0-0_2.4.11-3ubuntu3_amd64.deb
+		sudo wget archive.ubuntu.com/.../libwebkitgtk-1.0-0_2.4.11-3ubuntu3_amd64.deb
 
 * Extract *.deb files in /opt/eclipse/garmin/extra
 
