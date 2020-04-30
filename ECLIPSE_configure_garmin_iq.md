@@ -27,18 +27,14 @@ sudo wget archive.ubuntu.com/.../libwebkitgtk-1.0-0_2.4.11-3ubuntu3_amd64.deb
 
 - Extract *.deb files in /opt/eclipse/garmin/extra
 
-´´´
-cd /opt/eclipse/garmin/extra
-sudo dpkg -x libicu60_60.2-3ubuntu3_amd64.deb .
-sudo dpkg -x libjavascriptcoregtk-1.0-0_2.4.11-3ubuntu3_amd64.deb .
-sudo dpkg -x libwebkitgtk-1.0-0_2.4.11-3ubuntu3_amd64.deb .
-´´´
+	cd /opt/eclipse/garmin/extra
+	sudo dpkg -x libicu60_60.2-3ubuntu3_amd64.deb .
+	sudo dpkg -x libjavascriptcoregtk-1.0-0_2.4.11-3ubuntu3_amd64.deb .
+	sudo dpkg -x libwebkitgtk-1.0-0_2.4.11-3ubuntu3_amd64.deb .
 
 - Which to normal user and export LD_LIBRARY_PATH in command line:
 
-´´´
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eclipse/garmin/extra/usr/lib/x86_64-linux-gnu/
-´´´
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eclipse/garmin/extra/usr/lib/x86_64-linux-gnu/
 
 Now start the simulator, or eclipse within this shell
 
@@ -46,7 +42,5 @@ Now start the simulator, or eclipse within this shell
 ### 2. ENV VAR
 In your ~/.bashrc, at the end, add the following ines:
 
-´´´
-# lines added to assign Env variable needed for the sdk
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eclipse/garmin/extra/usr/lib/x86_64-linux-gnu/
-´´´
+	# lines added to assign Env variable needed for the sdk
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eclipse/garmin/extra/usr/lib/x86_64-linux-gnu/
