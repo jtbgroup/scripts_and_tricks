@@ -37,7 +37,7 @@ To get the simulator to work
 
 
 ### 2. ENV VAR
-In your ~/.bashrc, at the end, add the following lines:
+If you want to persist the variable on your system, add the following lines at the end of the file ~/.bashrc
 
 	# lines added to assign Env variable needed for the sdk
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/eclipse/garmin/extra/usr/lib/x86_64-linux-gnu/
