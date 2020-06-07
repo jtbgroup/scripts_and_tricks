@@ -15,3 +15,6 @@ Program installer via a selection menu
 	
 ### > LINUX_mountCifs.sh
 Mounts an external device via cifs as workaround because editing ID3 tags through SMB. I use this in combination with KID3
+
+### > LINUX_replayGain.sh
+Mounts an external device via cifs and recompute replaygain for music files (mp3 and flac).
