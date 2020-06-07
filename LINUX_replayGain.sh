@@ -1,4 +1,5 @@
 #!/bin/bash
+tmpFile
 mount_path_default="//192.168.0.10/common/01_shared/03_music/01\ artists"
 mount_path=$mp3_path_default
 pathPattern="Z"
@@ -23,11 +24,13 @@ executeFolder(){
 	sizeMP3=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.mp3" -type f | wc -l)
 	sizeFLAC=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.flac" -type f | wc -l)
 	if [[ $sizeMP3 > 0 && $sizeFLAC > 0 ]]; then
-		printf "Mix of format, the following folder should be checked first : \n"
+		printf "\n\t !!!! Mix of format, the following folder should be checked first : \n"
 		printf "\t\t$album\n"
+		echo "Mix of music formats : $album" >> ${tmpFile}
 	elif [[ $sizeMP3 == 0 && $sizeFLAC == 0 ]]; then
-		printf "No song found in the right format, the following folder should be checked first : \n"
+		printf "\n\t !!!! No song found in the right format, the following folder should be checked first : \n"
 		printf "\t\t$album\n"
+		echo "No song of music format : $album" >> ${tmpFile}
 	elif [[ $sizeMP3 > 0 ]]; then
 		printf "$album\n"
 		executeMP3 "$album"
@@ -40,10 +43,10 @@ replaygain(){
 	path="${mount_name}"/$pathPattern"*"
 	printf "\n\n\nStarting replay gain from path is "$path"\n"
 	
-	
 	export -f executeFolder
 	export -f executeMP3
 	export -f executeFLAC
+	export tmpFile
 	find $path -maxdepth 1 -mindepth 1 -type d -exec bash -c 'executeFolder "$0"' {} \;
 }
 
@@ -71,7 +74,7 @@ umountJ(){
 	printf "\n>>> UMOUNT STARTED : $mount_name\n"
 	umount "$mount_name" 
 	printf "umount ok\n"
-	rm "$mount_name" -v -r
+	rm $mount_name -v -r
 	printf "remove ok\n"
 	printf "<<< UMOUNT FINISHED : $mount_name\n"
 }
@@ -91,6 +94,20 @@ mountJ(){
 	printf "<<< MOUNT FINISHED : $mount_name\n"
 }
 
+createTemp(){
+	printf "creating temp file $tmpFile"
+	tmpFile=$(mktemp /tmp/replayGainScript.XXXXXXXXX)
+}
+
+readSummary(){
+	printf "\n"
+	printf "Summary : Folders with problems:\n"
+	printf "********************************\n"
+	cat $tmpFile
+	printf "********************************\n"
+	printf "deleting temp file $tmpFile"
+	rm $tmpFile
+}
 
 # #####################################
 #		STARTUP
@@ -103,6 +120,8 @@ else
 
 	readInputs
 	mountJ
+	createTemp
 	replaygain
+	readSummary
 	umountJ
 fi
