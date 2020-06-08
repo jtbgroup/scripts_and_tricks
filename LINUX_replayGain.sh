@@ -2,7 +2,7 @@
 tmpFile
 mount_path_default="//192.168.0.10/common/01_shared/03_music/01\ artists"
 mount_path=$mp3_path_default
-pathPattern="Z"
+pathPattern=""
 mount_name="/mnt/replayGainScript"
 mount_user=""
 mount_user_default="gautier"
@@ -106,7 +106,7 @@ readInputs(){
 	
 	read -p "   Path to search for: "$'\n'$"(default is 'Z', but an example is 'Z' or 'A' or 'Meta')"$'\n'$">" pathPattern;
 	if [[ "$pathPattern" == "" ]]; then
-		pathPattern="Z";
+		pathPattern="";
 	fi
 	
 	read -p "   Force recalcuation: "$'\n'$"(default is '0', choose '0' or '1')"$'\n'$">" forceRecalculation;
