@@ -104,7 +104,7 @@ readInputs(){
 		mount_user=${mount_user_default};
 	fi
 	
-	read -p "   Path to search for: "$'\n'$"(default is 'Z', but an example is 'Z' or 'A' or 'Meta')"$'\n'$">" pathPattern;
+	read -p "   Path to search for: "$'\n'$"(default is '*', but an example is 'Z' or 'A' or 'Meta')"$'\n'$">" pathPattern;
 	if [[ "$pathPattern" == "" ]]; then
 		pathPattern="";
 	fi
