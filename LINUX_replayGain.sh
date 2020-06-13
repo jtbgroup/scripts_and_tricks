@@ -9,17 +9,17 @@ mount_user_default="gautier"
 forceRecalculation
 
 
-executeMP3(){
+executeMp3Gain(){
 	printf ">>> execute replaygain (mp3gain) \n"
 	if [[ "$forceRecalculation" -eq "1" ]]; then
 		printf "Force recalculation...\n"
-		mp3gain -a -c -f -s r "$1"/*.mp3 
+		mp3gain -a -c -f -s r "$1/*.$2" 
 	else
-		mp3gain -a -c -f "$1"/*.mp3
+		mp3gain -a -c -f "$1/"*."$2"
 	fi
 }
 
-executeFLAC(){
+executeMetaflac(){
 	printf ">>> execute metaflac \n"
 	currentDir=$(pwd)
 	cd "$1"
@@ -56,25 +56,75 @@ executeFLAC(){
 	cd $currentDir
 }
 
+# Vorbisgain parameters:
+# -a = album calculation
+# -f = fast (= do not recalculate gain if present)
+# -r = recursive (album folder)
+# -s = sliently skip any non-Vorbis files found.
+executeVorbis(){
+	printf ">>> execute replaygain (vorbisgain) \n"
+	if [[ "$forceRecalculation" -eq "1" ]]; then
+		printf "Force recalculation...\n"
+		vorbisgain -a -r -s $1
+	else
+		vorbisgain -a -f -r -s $1
+	fi
+	
+}
+
+# wvgain parameters:
+# -a = album calculation
+# -c = clean tags
+# -n = only new files (with no tags)
+executeWvGain(){
+	printf ">>> execute replaygain (vwgain) \n"
+	if [[ "$forceRecalculation" -eq "1" ]]; then
+		printf "Force recalculation...\n"
+		vwgain -c $1
+		vwgain -a $1
+	else
+		vwgain -a -n $1
+	fi
+	
+}
+
 executeFolder(){
 	album=${1}
 	printf "\n\nChecking album: $album\n"
 	sizeMP3=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.mp3" -type f | wc -l)
 	sizeFLAC=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.flac" -type f | wc -l)
-	if [[ $sizeMP3 > 0 && $sizeFLAC > 0 ]]; then
+	sizeM4A=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.m4a" -type f | wc -l)
+	sizeMP4=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.mp4" -type f | wc -l)
+	sizeOgg=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.ogg" -type f | wc -l)
+	sizeWav=$(find "$album" -maxdepth 1 -mindepth 1 -name "*.wav" -type f | wc -l)
+	totalSize=$(($sizeMP3+$sizeFLAC+$sizeM4A+$sizeMP4+$sizeOgg+$sizeWav))
+	
+	if [[ $totalSize > $sizeMP3 && $totalSize > $sizeFLAC && $totalSize > $sizeM4A && $totalSize > $sizeMP4 && $totalSize > $sizeOgg && $totalSize > $sizeWav ]]; then
 		printf "!!!! Mix of format, the following folder should be checked first : \n"
 		printf "\t$album\n"
 		echo "Mix of music formats : $album" >> ${tmpFile}
-	elif [[ $sizeMP3 == 0 && $sizeFLAC == 0 ]]; then
+	elif [[ $sizeMP3 == 0 && $sizeFLAC == 0 && $sizeM4A == 0 && $sizeMP4 == 0 && $sizeOgg == 0 && $sizeWav == 0 ]]; then
 		printf "!!!! No song found in the right format, the following folder should be checked first : \n"
 		printf "\t$album\n"
 		echo "No song of music format : $album" >> ${tmpFile}
 	elif [[ $sizeMP3 > 0 ]]; then
 		printf "This album contains MP3\n"
-		executeMP3 "$album"
+		executeMp3Gain "$album" "mp3"
 	elif [[ $sizeFLAC > 0 ]]; then
 		printf "This album contains FLAC\n"
-		executeFLAC "$album"
+		executeMetaflac "$album"
+	elif [[ $sizeM4A > 0 ]]; then
+		printf "This album contains M4A\n" "m4a"
+		executeMp3Gain "$album"
+	elif [[ $sizeMP4 > 0 ]]; then
+		printf "This album contains MP4\n" 
+		executeMp3Gain "$album" "mp4"
+	elif [[ $sizeOgg > 0 ]]; then
+		printf "This album contains Ogg\n" 
+		executeVorbisGain "$album"
+	elif [[ $sizeWav > 0 ]]; then
+		printf "This album contains Wav\n" 
+		executeWvGain "$album"
 	fi
 	printf "\n"
 }
@@ -84,8 +134,10 @@ replaygain(){
 	printf "\n\n\nStarting replay gain from path is "$path"\n"
 	
 	export -f executeFolder
-	export -f executeMP3
-	export -f executeFLAC
+	export -f executeMp3Gain
+	export -f executeMetaflac
+	export -f executeVorbisGain
+	export -f executeWvGain
 	export forceRecalculation
 	export tmpFile
 	find $path -maxdepth 1 -mindepth 1 -type d -exec bash -c 'executeFolder "$0"' {} \;
@@ -162,7 +214,7 @@ if [[ $EUID -ne 0 ]]; then
    	printf "This script must be run as root type: sudo ./<script>\n" 
    	exit 1
 else
-	apt install cifs-utils flac mp3gain
+	apt install cifs-utils flac mp3gain vorbisgain wavpack
 
 	readInputs
 	mountJ
