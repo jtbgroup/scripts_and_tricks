@@ -11,10 +11,12 @@ This method has been tested on a Asus Zenwifi.
 **Attention: this trick will work as long as the router is not updated. If you update the firmware, you'll need to do this again.**
 
 Plug an usb device in the router and in a terminal in the router. The content of the usb stick is not important. COnnect to your router using an ssh connection and type these lines:
+
 ```shell
     nvram set script_usbmount="/jffs/scriptname"
     nvram commit
 ```
+
 where *scriptname* is the script you want to execute (assuming you copied your script in /jffs). 
 
 Storing your script in /jffs is a good option as this folder is not deleted when rebooting.
