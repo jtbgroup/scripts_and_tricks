@@ -17,6 +17,6 @@ Plug an usb device in the router and in a terminal in the router. The content of
     nvram commit
 ```
 
-where *scriptname* is the script you want to execute (assuming you copied your script in /jffs). 
+where *scriptname* is the script you want to execute (assuming you copied your script in /jffs).
 
 Storing your script in /jffs is a good option as this folder is not deleted when rebooting.

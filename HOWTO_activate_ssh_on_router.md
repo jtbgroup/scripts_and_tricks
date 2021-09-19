@@ -60,13 +60,3 @@ This has been tested on an ASUS WIFIZEN and Home assistant as client. THe keys a
     * Public key
 
         On the router, fill in the RSA key in the *Admin* section
-
-### Run script on router startup
-Plug an usb device in the router and in a terminal on the router, add these lines
-
-```shell
-    nvram set script_usbmount="/jffs/scriptname"
-    nvram commit
-```
-
-where scriptname is the script you want to execute
