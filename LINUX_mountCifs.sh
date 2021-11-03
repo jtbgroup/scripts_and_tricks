@@ -8,8 +8,9 @@ mountJ(){
 	fi
 	
 	mkdir /mnt/jupiter
-	mount -t cifs //192.168.0.10/common /mnt/jupiter -o username=gautier,uid=gautier,gid=users
-	xfce4-terminal --working-directory=/mnt/jupiter &
+	mount -t cifs //192.168.1.10/common /mnt/jupiter -o username=gautier,uid=gautier,gid=users
+	# xfce4-terminal --working-directory=/mnt/jupiter &
+    konsole --workdir=/mnt/jupiter &
 }
 
 umountJ(){
