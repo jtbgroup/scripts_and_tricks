@@ -35,8 +35,17 @@ $ git config --system --unset credential.helper
 
 ## Reset a branch to remote
 
-If name if the branch is master:
+If name of the branch is master:
 ```
 git reset --hard origin/master
 ```
 
+For a full clean
+```
+git reset --hard HEAD
+git clean -f -x -d -n
+```
+then 
+```
+git clean -f -x -d
+```
