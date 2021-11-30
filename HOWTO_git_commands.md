@@ -32,3 +32,11 @@ If needed, anytime you can delete the cache record by:
 $ git config --global --unset credential.helper
 $ git config --system --unset credential.helper
 ```
+
+## Reset a branch to remote
+
+If name if the branch is master:
+```
+git reset --hard origin/master
+```
+
