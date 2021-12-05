@@ -26,9 +26,10 @@ $ git config --global credential.helper cache
 ```
 
 ## Delete global credentials
+
 If needed, anytime you can delete the cache record by:
 
-```
+``` shell
 $ git config --global --unset credential.helper
 $ git config --system --unset credential.helper
 ```
@@ -36,16 +37,39 @@ $ git config --system --unset credential.helper
 ## Reset a branch to remote
 
 If name of the branch is master:
-```
+
+``` shell
 git reset --hard origin/master
 ```
 
 For a full clean
-```
+
+``` shell
 git reset --hard HEAD
 git clean -f -x -d -n
 ```
-then 
-```
+
+then
+
+``` shell
 git clean -f -x -d
+```
+
+## Create a tag and push it
+
+Creates the local tag, then the remote one
+
+``` shell
+git tag 3.2.1
+git push --set-upstream origin 3.2.1
+```
+
+## Delete a tag
+
+Deletes the local tag, then the remote one
+
+``` shell
+git tag -d 3.2.0 
+git push --delete origin 3.2.0
+
 ```
