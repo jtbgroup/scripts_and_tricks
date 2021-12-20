@@ -259,3 +259,11 @@ filter:
   field: title
   value: karma
 ```
+
+## Change some ID3 tags
+
+Bad Credentials?
+
+```
+http://192.168.1.12:8080/jsonrpc?request={"jsonrpc":"2.0","method":"AudioLibrary.SetSongDetails","id":"123456","params":{"songid":3,"title":"Kryptonite (Remaster)"}}
+```
