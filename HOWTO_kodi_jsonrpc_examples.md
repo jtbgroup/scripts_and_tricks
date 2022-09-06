@@ -203,7 +203,8 @@ method: Player.PlayPause
 playerid: 0
 ```
 
-## Recent added videos
+## Recently added videos
+
 ### HA service call
 
 ``` yaml
@@ -214,6 +215,16 @@ properties:
   - file
   - year
   - lastplayed
+```
+
+## Recently played songs
+
+AudioLibrary.GetRecentlyPlayedSongs doesn't give the expected result. AudioLibrary.GetSongs can achieve the goal.
+
+### HA service call
+
+```
+http://192.168.1.12:8080/jsonrpc?request={"jsonrpc":"2.0","method":"AudioLibrary.GetSongs","id":"1611465047410","params":{"properties":["title","artist","album"],"limits":{"start":0,"end":21},"sort":{"method":"lastplayed","order":"descending"}}}
 ```
 
 ## Search song
@@ -258,6 +269,15 @@ filter:
   operator: contains
   field: title
   value: karma
+```
+
+
+## Search Music Videos
+
+### http call
+
+```
+http://192.168.1.12:8080/jsonrpc?request={"jsonrpc":"2.0","method":"VideoLibrary.GetMusicVideos","id":"1611465047410","params":{"properties":["title","artist","genre"],"limits":{"start":0,"end":20},"sort":{"method":"title","order":"ascending","ignorearticle":true},"filter":{"or":[{"field":"title","operator":"contains","value":"earth"},{"field":"artist","operator":"contains","value":"Within"}]}}}
 ```
 
 ## Change some ID3 tags
