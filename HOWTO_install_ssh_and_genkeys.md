@@ -63,3 +63,15 @@ PasswordAuthentication no
 ```shell
 sudo systemctl reload sshd
 ```
+
+## Store your configs
+
+In `~/.ssh/config` file, add one bloc per target
+
+```yaml
+Host hypernc
+    HostName hostname_Or_Ip
+    User myUser
+    Port 22
+    IdentityFile ~/.ssh/mykeylocation.key
+```
