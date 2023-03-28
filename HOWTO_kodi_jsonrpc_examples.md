@@ -287,3 +287,79 @@ Bad Credentials?
 ```
 http://192.168.1.12:8080/jsonrpc?request={"jsonrpc":"2.0","method":"AudioLibrary.SetSongDetails","id":"123456","params":{"songid":3,"title":"Kryptonite (Remaster)"}}
 ```
+
+
+## Other HASS calls
+
+```yaml
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Player.Open
+  item:
+    directory: special://profile/playlists/music/Playlist Quiet.xsp
+
+
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Player.Open
+  item:
+    directory: special://profile/playlists/music/quiet metal.m3u
+    
+    
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Playlist.Clear
+  playlistid: 0
+ 
+ 
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Playlist.Add
+  playlistid: 0
+  item:
+     recursive: true
+     directory: special://profile/playlists/music/Playlist Quiet.xsp
+ 
+ 
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Player.Open
+  item:
+     playlistid: 0
+     position: 0
+     
+
+
+
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Playlist.Add
+  playlistid: 0
+  item:
+     recursive: true
+     directory: special://profile/playlists/music/quiet metal.m3u
+     
+     
+     
+service: kodi.call_method
+target:
+  entity_id: media_player.kodi_67562315fb56bdd0a0391e7bd0ff8b70
+data:
+  method: Playlist.Insert
+  playlistid: 0
+  position: 3
+  item:
+     directory: special://profile/playlists/music/quiet metal.m3u
+```

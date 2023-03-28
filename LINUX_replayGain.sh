@@ -1,6 +1,6 @@
 #!/bin/bash
 tmpFile
-mount_path_default="//192.168.0.10/common/01_shared/03_music/01\ artists"
+mount_path_default="//192.168.1.13/common/01_shared/03_music/01\ artists"
 mount_path=$mp3_path_default
 pathPattern=""
 mount_name="/mnt/replayGainScript"
